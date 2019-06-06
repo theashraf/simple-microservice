@@ -1,0 +1,74 @@
+{
+	"name": "simple-microservice",
+	"version": "1.0.0",
+	"description": "",
+	"main": "index.js",
+	"scripts": {
+		"dev": "nodemon --exec babel-node -r ./node_modules/dotenv/config src",
+		"prestart": "npm run build",
+		"start": "node build",
+		"prebuild": "npm run validate && rimraf build",
+		"build": "babel src --out-dir build",
+		"lint": "eslint . --fix",
+		"format": "prettier --write \"**/*.+(js|md|json)\"",
+		"commit": "git-cz",
+		"release": "standard-version",
+		"build:docker": "docker build . -t simple-microservice",
+		"test": "jest",
+		"validate": "npm run lint && npm test"
+	},
+	"keywords": [],
+	"author": "",
+	"license": "MIT",
+	"dependencies": {
+		"@hapi/joi": "^15.0.3",
+		"axios": "^0.19.0",
+		"express": "^4.17.1",
+		"express-pino-logger": "^4.0.0",
+		"helmet": "^3.18.0",
+		"jsonpatch": "^3.0.1",
+		"jsonwebtoken": "^8.5.1",
+		"pino": "^5.12.6",
+		"pino-pretty": "^3.1.0",
+		"sharp": "^0.22.1"
+	},
+	"devDependencies": {
+		"@babel/cli": "^7.4.4",
+		"@babel/core": "^7.4.5",
+		"@babel/node": "^7.4.5",
+		"@babel/plugin-transform-runtime": "^7.4.4",
+		"@babel/preset-env": "^7.4.5",
+		"@commitlint/cli": "^8.0.0",
+		"@commitlint/config-conventional": "^8.0.0",
+		"dotenv": "^8.0.0",
+		"eslint": "^5.16.0",
+		"eslint-config-node": "^4.0.0",
+		"eslint-config-prettier": "^4.3.0",
+		"eslint-plugin-prettier": "^3.1.0",
+		"git-cz": "^3.0.1",
+		"husky": "^2.3.0",
+		"jest": "^24.8.0",
+		"lint-staged": "^8.1.7",
+		"nodemon": "^1.19.1",
+		"prettier": "^1.17.1",
+		"rimraf": "^2.6.3",
+		"standard-version": "^6.0.1",
+		"supertest": "^4.0.2"
+	},
+	"husky": {
+		"hooks": {
+			"commit-msg": "commitlint -E HUSKY_GIT_PARAMS",
+			"pre-commit": "lint-staged"
+		}
+	},
+	"lint-staged": {
+		"**/*.js": [
+			"npm run validate",
+			"git add"
+		],
+		"**/*.+(md|json)": [
+			"prettier --write",
+			"git add"
+		]
+	}
+}
