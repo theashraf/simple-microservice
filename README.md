@@ -106,7 +106,7 @@ using docker image
 ## development
 
 ```bash
-npm run dev // start server is development mode
+npm run dev // start server in development mode
 npm test -- --watchAll // run tests
 ```
 
