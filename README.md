@@ -13,6 +13,13 @@ simple stateless microservice in Nodejs, with three major functionalities -
   npm start
 ```
 
+using docker image
+
+```bash
+  docker pull theashraf/simple-microservice
+  docker run -d -p 3000:3000 theashraf/simple-microservice
+```
+
 ## Usage
 
 ### Login with a User [POST /api/auth/login]
