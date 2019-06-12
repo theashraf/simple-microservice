@@ -2,6 +2,14 @@ import app from "./app"
 import logger from "./modules/logger"
 import config from "./config"
 
-const port = config.port
+const server = app.listen(config.PORT, () =>
+	logger.info(`Starting server on port: ${config.PORT}`)
+)
 
-app.listen(port, () => logger.info(`server is running on port: ${port}`))
+process.on("SIGTERM", () => {
+	logger.info("Closing http server.")
+	server.close(() => {
+		logger.info("Http server closed.")
+		process.exit(0) // eslint-disable-line no-process-exit
+	})
+})

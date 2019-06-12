@@ -3,7 +3,7 @@ import prettifier from "pino-pretty"
 import config from "../config"
 
 const logger = pino({
-	level: config.logLevel,
+	level: config.NODE_ENV === "test" ? "silent" : config.LOG_LEVEL,
 	prettifier,
 	prettyPrint: { colorize: true }
 })
